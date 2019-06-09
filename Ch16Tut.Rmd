@@ -1,0 +1,256 @@
+---
+title: "R2GitAndBranching"
+author: "Michael Friedman"
+date: "6/7/2019"
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
+
+### FIRST THINGS FIRST! DO NOT DO ANYTHING TO THIS DOCUMENT! THIS IS SIMPLY A STEP-BY-STEP TUTORIAL.
+
+You may notice that this is a .RMD file
+HOWEVER ~
+there is no code in here. 
+I am using this type of file to help us all get used to working in Rstudio!
+
+While this closely follows the tutorial in the link below, I have modified it into an order I think is better suited for our lesson, is more efficient, and is less awkward while still showing us how things are connected. 
+
+Disclaimer: my subchapter numbers (ex: 1.1) will not correspond with those in the tutorial (which start at 16.1)
+https://happygitwithr.com/existing-github-first.html
+However for part 1a it will be pretty easy to recconcile.
+Parts 1b and 2 are not in the tutorial above.
+
+In this lesson we will be covering two major topics that are essential to using GitHub/Git with R and RStudio! 
+
+Topics will be separated into CHUNKS
+     1) Learning how to bring an RProject you already have into the GitHub universe (Ch 16 of tutorial linked to above)
+           a) Hands-on pathway; how does everything connect?
+           b) Hands-off pathway; what's fast and easy? 
+     2) Learn about BRANCHING!!!! 
+           a) What is it? Why does it make GitHub special? and HOW DO WE DO IT!
+
+
+```{r}
+# 1) Learning how to bring an RProject you already have into the GitHub universe
+#   a) Hands-on pathway; how does everything connect?
+
+# 1.a.1 
+# Make a 'Dummy' R project
+#     - Open RStudio
+#     - Create a new .Rproj and call it <Ch16Dummy>
+#     - Save to DESKTOP or other location that you will remember and is easily accessible 
+# While in your 'Dummy' .Rproj
+#     - Create new .RMD (R Markdown) file and add a note: "This is a dummy file I have been utilizing for the past five years, it has lived on my desktop all this time and I would like to upload it to GitHub, but I don't know how"
+#     - Save as "Dummy" and close .Rproj
+
+# 1.a.2
+# Open your browser and log onto GitHub
+# Make a new repository and call it <Ch16>
+#     - add a description, and make sure to initialize repository with a README file
+# Clone repository URL via the "Clone or Download" button (AKA -- COPY LINK)
+
+# 1.a.3
+# Open RStuio and create new .Rproj
+#     - Select "Version Control" option
+#     - Select "Git" option
+#     - Paste GitHub Repository URL that was copied in step 16.2
+#     - Name directory <Ch16>
+#     - Choose location to which you will save this new .Rproj .... I suggest Desktop for now, however Windows users may feel that a different location is more appropriate for temporary access
+#     - Make sure to check the box next to "OPEN IN NEW SESSION"
+# Keep this .Rproj open
+
+# 1.a.4
+# Open the folder that contains your 'Dummy' .Rproj ...... (*cough* Should be called <Ch16Dummy> *uncough*)
+#     - Copy the contents of this folder
+#     - AKA select EVERYTHING in this folder, right click, and press COPY
+
+# 1.a.5
+# Open the folder that contains your newly made .Rproj ...... (*COUGH LOUDER* Should be called <Ch16> *unCOUGH LOUDER*)
+#     - PASTE the contents of your clipboard
+#     - Check in RStudio .... 
+#           a) Did the contents (files) in your 'Dummy' .Rproj show up in the file browsing pane?
+#           b) Did the contents (again, your files from your 'Dummy' .Rproj) show up under the "Git" tab?
+#                     - HINT: Look to the upper right hand corner of RStudio... You will see "Environment", "History", and "Git" tabs
+
+# If you answered YES to both of these, you're on the right track and may move on to step 1.6
+# If you've answered NO to either, you've fucked something up. Welp. Do not pass go.
+
+# 1.a.6 
+# In your <Ch16> .Rproj (opened in RStudio) navigate to the "Git" tab in the upper right hand corner
+#     - You should see a list of all the files in your project
+#     - Check the box to the left of the file names to STAGE youre files ... this will get them ready to commit to GitHub... think of it like typing 'git add [file]' in the command box/terminal
+#                     - BE CAREFUL HERE ... STAGING something means it is READY to go to GitHub
+#                     - You can add one file to GitHub and not add another if it is not ready; be conscious about what you are staging!
+# Hit the "Commit" button
+#     - a new window should pop up
+#     - you MUST write a commit message when working in R or your commit will NOT work
+#                     - Ex: "MF 060719 9:37PM
+#                               Adding via RStudio"
+# Close secondary pop up window
+# Hit "Push" button to send local changes to remote repository (AKA your repo. on GitHub)
+
+# 1.a.7
+# Open your browser to your GitHub repository and check -- are your files from your 'Dummy' .Rproj there? Have they been successfully uploaded?
+# If so then NICE WORK! On to the next objective.
+# If not then let's try and figure out what in the holy hell went wrong!
+
+```
+
+### Okay, so that was the slightly (but not entirely) awkward method for uploading an existing .Rproj file to GitHub
+
+## But as I mentioned, there's an easier way! 
+### However, it is much more hands-off and does not allow us to see how all these moving pieces are really connected.
+
+```{r}
+# 1) Learning how to bring an RProject you already have into the GitHub universe
+#   b) Hands-off pathway; what's fast and easy?
+
+# 1.b.1 
+# Make a 'Dummy_2.0' R project
+#     - Open RStudio
+#     - Create a new .Rproj and call it <Ch16DummyB> *NOTE THE DIFFERNT NAME FOR THIS .Rproj*
+#     - Save to DESKTOP or other location that you will remember and is easily accessible 
+# While in your <Ch16DummyB> .Rproj
+#     - Create new .RMD (R Markdown) file and add a note: "This is a dummy file I have been utilizing for the past five years, it has lived on my desktop all this time and I would like to upload it to GitHub, but I don't know how"
+#     - Save and close <Ch16DummyB> .Rproj
+
+# 1.b.2
+# Open <Ch16> .Rproj created in 1.a
+# Take a look at the file viewer and notice what is there
+
+# 1.b.2
+# Open online GitHub repository that you already have (The <Ch16> repo. we just made in 1.a)
+#     - Select "Upload" and navigate to the new <Ch16DummyB> .Rproj we just created
+#     - Select all files and upload to repository
+
+### 1.b.3 
+# In RStudio again (Your <Ch16> .Rproj) look in the file viewing pane... are the files from <Ch16DummyB> there?
+# If so.... 
+# navigate to the upper right corner and into the "Git" environment
+# In the Git environment press the blue down arrow
+#       This will PULL changes made in the remote repository (web-based GitHub) onto your local repository (computer files)
+# Because we added files to our repository on GitHub in the web, those additions were PULLED to our local repository
+
+### 1.b.4 
+# You can now save the .Rproj you are working in and sleep well knowing it is forever connected to the GitHub universe
+
+```
+
+### Okay, phew. We finished lesson one. Task accomplished! Now, onto the hard stuff....
+
+## BRANCHING!
+
+### Our lesson on branching will commence with this video (https://www.youtube.com/watch?v=QV0kVNvkMxc) which will help explain the concept of branching in GitHub in the first 5 minutes
+
+```{r}
+# 2) Learn about BRANCHING!!!!
+#   a) What is branching?
+
+# Branching
+# The following text comes from this tutorial: https://thenewstack.io/dont-mess-with-the-master-working-with-branches-in-git-and-github/
+
+### Yes, Master
+# By now you understand that git saves each version of your project as a snapshot of the code exactly as it was at the moment you committed it. Essentially creating a timeline of versions of a project as it progresses, so that you can roll back to an earlier version in the event disaster strikes.
+
+# The way git, and GitHub, manage this timeline — especially when more than one person is working in the project and making changes — is by using branches. A branch is essentially is a unique set of code changes with a unique name. Each repository can have one or more branches. The main branch — the one where all changes eventually get merged back into, and is called master. This is the official working version of your project, and the one you see when you visit the project repository at github.com/yourname/projectname.
+
+# Do not mess with the master. If you make changes to the master branch of a group project while other people are also working on it, your on-the-fly changes will ripple out to affect everyone else and very quickly there will be merge conflicts, weeping, rending of garments, and plagues of locusts. It’s that serious.
+
+# Why is the master so important to not mess with? One word: the master branch is deployable. It is your production code, ready to roll out into the world. The master branch is meant to be stable, and it is the social contract of open source software to never, ever push anything to master that is not tested, or that breaks the build. The entire reason GitHub works is that it is always safe to work from the master.
+
+### Branching Out
+#Instead, everyone uses branches created from master to experiment, make edits and additions and changes, before eventually rolling that branch back into the master once they have been approved and are known to work. Master then is updated to contain all the new stuff.
+
+# Another overview of branches is this video https://www.youtube.com/watch?v=QV0kVNvkMxc 
+# We will watch the first ~5 minutes of this.
+
+# 2.1
+# Open your <Ch16> .Rproj file we made in part 1
+# Make sure there is a README file in the navigation pane
+
+# 2.2 
+# Just like basic Git commands such as "push" or "pull", any commands we use today will need to be preceded with "git" 
+# examples of git commands commonly used for branching:
+#         $ git branch 
+#               Lists all local branches in the current repository
+#         $ git branch <branch-name>
+#               Creates a new branch
+#         $ git checkout <branch-name>
+#               Switches to the specified branch and updates the working directory 
+# We will be using other commands as well today!
+
+# 2.3 
+# Open the SHELL -- AKA the command line/terminal we can access through RStudio
+# Tools > Shell
+
+# 2.4
+# In the shell type
+#         $ git status (to make sure you have no changes that need to be commited/pushed to GitHub)
+#
+#         $ git branch (to see a list of all local branches in current repository. you should only have the 'master' branch currently)
+#
+#         $ git log --oneline (to see a log of all recent commits made in repository)
+#
+# If everything looks good so far, move forward! If not, slow your roll and ask for help.
+
+# 2.5
+# We are now ready to create a new branch! In the shell, type:
+#         $ git branch <newbranchname>
+# 
+#         $ git branch (to see your list of all local branches. you should have now the 'master' branch and the new branch we just created, whatever the heck you called it)
+# You will also notice there is an * next to your master branch. This is the branch in which we are currently working 
+
+# 2.6
+# Okay - so we have made a new branch. Now how do we access this branch to start making changes to it? Elementary, my dear Watson.
+# Still working in the shell, type 
+#         $ git checkout <newbranchname>
+# and BAM! you're in! this command is necessary as it also updates the working directory.
+
+# SIDENOTE! to create a new branch and checkout all at once use the command
+#         $ git checkout -b <newbranchname>
+# However, for today's purposes and to get a handle on what exactly is happening under the hood, stick to the first method ;)
+
+# 2.7 
+# Type:
+#         $ git branch
+# You will now see your new list of branches but hey! There's * next to <newbranchname>! 
+
+# 2.8
+# Lest step in the shell (for now). Type:
+#         $ git push -u origin <newbranchname> 
+# THis will push the branch to your remote GitHub repository (AKA online)
+
+# 2.9
+# Now, close your shell for a moment.
+# Look in the Environment pane (upper right corner) and select the Git tab. YOu will see there is a new drop down menu that shows all of your branches as well as the current branch you are in
+# In the navigation pane in Rstudio open the README file
+# Let's try editing our README file... please add this giant swarm of bats!!!
+
+# /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ /|\^._.^/|\ 
+
+# Save your README file
+# Stage the file in the Git tab 
+# Press commit
+# Remember, it is necessary for us to include a commit message when working with git in RStudio
+#         best practices will be date and time your commit and sign with your initials
+#                         - Ex: "MF 060719 9:37PM
+#                               Adding via RStudio"
+# Press push and close window 
+
+#2.10 
+# Open GitHub online and navigate to the repository in which we are working
+# You should now have 2 branches
+# Check for the swarm of bats in the README in your new branch!
+# Check the README in the master branch for a lack of bats!
+
+# If everything looks correct -- then good work! We did it!
+```
+
+
+
+
+
+
+
